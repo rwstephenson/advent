@@ -69,6 +69,5 @@ def parseFilePt2(filename):
             id += 1
     return totalCards
 
-
 print(parseFilePt2("input.txt"))
 

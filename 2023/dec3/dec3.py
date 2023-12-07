@@ -80,6 +80,7 @@ def parseFilePt1(filename):
     sum = 0
     totalSum = 0
     sumIgnored = 0
+    count = 0
     for l in range(len(schema)):
         print ("Line: " + str(l) + "-------------------------------------")
         lineLength = len(schema[l])
@@ -105,6 +106,7 @@ def parseFilePt1(filename):
                     totalSum += int(numberString)
                     if (checkForNearbySymbol(schema, l, numIdx, numEndIdx,int(numberString))):
                         sum += int(numberString)
+                        count += 1
                         print("And the sum is: " + str(sum))
                     else:
                         print ("Number with NO symbol:" + numberString)
@@ -114,6 +116,7 @@ def parseFilePt1(filename):
                     numIdx = 0
             c = c + 1
     print("---------------")
+    print("Count: " + str(count))
     print ("Total Sum: " + str(totalSum))
     print ("Sum Parts: " + str(sum))
     print ("Sum Ignored: " + str(sumIgnored))
