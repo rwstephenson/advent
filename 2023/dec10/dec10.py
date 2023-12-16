@@ -167,8 +167,8 @@ def cleanedCoordinates(coordinates, loopNodes):
                 cleanLine += coordinates[y][x]
             else:
                 cleanLine += '.'
-        print(cleanLine)
         cleanedOutput.append(cleanLine)
+        print(cleanLine)
     return cleanedOutput
 
 def cleanAnddoubleInput(coordinates, loopNodes):
@@ -202,7 +202,6 @@ def cleanAnddoubleInput(coordinates, loopNodes):
             x+=1
         x = 0
         zoomedInCoords.append(zoomedInLine)
-        #print(zoomedInLine)
         zoomedInLine2 = ""
         while x < len(zoomedInLine):
             c = zoomedInLine[x]
@@ -228,13 +227,11 @@ def cleanAnddoubleInput(coordinates, loopNodes):
         x = 0
         assert(len(zoomedInLine) == len(cleanCoords[y]*2))
         assert(len(zoomedInLine) == len(zoomedInLine2))
-        #print(zoomedInLine2)
         zoomedInCoords.append(zoomedInLine2)
         y += 1
     return zoomedInCoords
 
 def realNodes(enclosed,coordinates):
-    print(enclosed)
     sum = 0
     for i in enclosed:
         x = int(i.strip().split(',')[0])
