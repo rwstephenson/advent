@@ -36,6 +36,7 @@ def checkIfWeStop(nodes):
             print(nodes)
         return True
 
+# NOTE THIS IS NOT ACTUALLY SOLVED!
 def pt2(filename):
     with open(filename, "r") as f:
         rlInstructions = f.readline().strip()
