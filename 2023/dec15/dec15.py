@@ -52,22 +52,17 @@ def updateBoxContents(contents, lens, newFocal):
         return newContents
 
 def addToLensMap(lens,focal):
-    print("Adding: " + lens)
     box = getValue(lens)
-    print(box)
     if box not in lensMap:
         lensMap[box] = [(0, lens, int(focal))]
     else:
         lensMap[box] = updateBoxContents(lensMap[box], lens, int(focal))
 
 def removeFromLensMap(lens):
-    print("Removing: " + lens)
     box = getValue(lens)
-    print(box)
     if box in lensMap:
         newContent = []
         for boxLens in lensMap[box]:
-            print("BoxLens = " + str(boxLens))
             if boxLens[1] == lens:
                 pass
             else:
@@ -76,15 +71,11 @@ def removeFromLensMap(lens):
 
 def getBoxValue(box):
     if box in lensMap:
-        print("Box: " + str(box))
         boxContents = lensMap[box]
-        print(boxContents)
         sum = 0
         for i in range(len(boxContents)):
             lens = boxContents[i]
-            print("Box: " + str(box+i+1) + ", position: " + str(i+1) + " focal: " + str(lens[2]))
             sum += (box+1) * (i+1) * lens[2]
-        print("Box value for box: " + str(box) + " is " + str(sum))
         return sum
     else:
         return 0
@@ -95,12 +86,10 @@ def pt2(filename):
         sum = 0
         for h in hashStrings:
             isAdd,lens,focal = isOpAdd(h)
-            print(lens)
             if isAdd:
                 addToLensMap(lens,focal)
             else:
                 removeFromLensMap(lens)
-            print(lensMap)
         for box in range(256):
             sum += getBoxValue(box)
         return sum
