@@ -116,7 +116,7 @@ def pt2(filename,cycles):
             roundRocks = spin(roundRocks,cubes,maxDistance,x,4)
             load = calculateLoad(roundRocks, maxDistance)
             print("i = " + str(i) + " Load: " + str(load))
-            modulos[i%7] = load
+            modulos[i%17] = load
             if load in numsSeen:
                 numsSeen[load] = numsSeen[load] + 1
             else:
@@ -131,5 +131,5 @@ def pt2(filename,cycles):
 
 assert(pt1("input.txt") == 109098)
 #print(pt1("testInput2.txt"))
-print(pt2("testInput.txt", 200))
+print(pt2("input.txt", 300))
 

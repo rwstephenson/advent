@@ -14,7 +14,6 @@ def parseFile(f):
 
 #Checking between x and x+1
 def checkForHorizontalMirror(x,block):
-    print("Checking: x = " + str(x))
     numDiff = 0
     smudgeX = 0
     smudgeY = 0
@@ -33,7 +32,6 @@ def checkForHorizontalMirror(x,block):
 
 #Checking between y and y+1
 def checkForVerticalMirror(y,block):
-    print("Checking: y=" + str(y))
     i = 0
     numDiff = 0
     smudgeX = 0
@@ -72,7 +70,6 @@ def cleanVertical(block):
     for y in range(0,len(block)-1):
         numDiff,smudgeX,smudgeY = checkForVerticalMirror(y,block)
         if numDiff == 1:
-            print("FOUND A SMUDGE = (" + str(smudgeX) + "," + str(smudgeY) + ")")
             assert(not foundSmudge)
             foundSmudge = True
             foundX = smudgeX
@@ -80,7 +77,6 @@ def cleanVertical(block):
     return foundSmudge,foundX,foundY
 
 def fixSmudge(block, smudgeX, smudgeY):
-    print ("Fixing Smudge: (" + str(smudgeX) + "," + str(smudgeY) + ")")
     cleanBlock = []
     for y in range(len(block)):
         blockLine = block[y]
@@ -96,7 +92,6 @@ def fixSmudge(block, smudgeX, smudgeY):
                         cleanString += '#'
                     elif blockLine[x] == '#':
                         cleanString += '.'
-                    print("FIXED SMUDGE (" + str(x) + "," + str(y) + ")")
             cleanBlock.append(cleanString)
     return cleanBlock
 
@@ -107,7 +102,6 @@ def cleanHorizontal(block):
     for x in range(0,len(block[0])-1):
         numDiff,smudgeX,smudgeY = checkForHorizontalMirror(x,block)
         if numDiff == 1:
-            print("FOUND A SMUDGE = (" + str(smudgeX) + "," + str(smudgeY) + ")")
             assert(not foundSmudge)
             foundSmudge = True
             foundX = smudgeX
@@ -128,21 +122,16 @@ def sumUpMirrors(blocks,oldBlocks=None):
         sum = 0
         i = 0
         for block in blocks:
-            print ("--------------Checking block: " + str(i))
             vert = 0
             hor = 0
             if oldBlocks:
-                print(block)
                 oldHor = findHorizontalMirror(oldBlocks[i])
                 assert(len(oldHor) <= 1)
                 horMirrors = findHorizontalMirror(block)
-                print(horMirrors)
-                print(oldHor)
                 if len(oldHor) == 0 and len(horMirrors) == 0:
                     hor = 0
                 elif len(oldHor) == 0:
                     assert(len(horMirrors) == 1)
-                    print("DOES IT FIND THIS")
                     hor = horMirrors[0]
                 elif len(horMirrors) == 1 and horMirrors[0] != oldHor[0]:
                     hor = horMirrors[0]
@@ -158,7 +147,6 @@ def sumUpMirrors(blocks,oldBlocks=None):
                     hor = horMirrors[0]
                 else:
                     hor = 0
-            print("Horizontal Result: " + str(hor))
             if oldBlocks:
                 oldVert = findVerticalMirror(oldBlocks[i])
                 assert(len(oldVert) <= 1)
@@ -182,7 +170,6 @@ def sumUpMirrors(blocks,oldBlocks=None):
                     vert = vertMirrors[0]
                 else:
                     vert = 0
-            print("Vertical Result: " + str(vert))
             assert(not (hor > 0 and vert > 0))
             assert(not (hor == 0 and vert == 0))
             sum += hor + vert*100
