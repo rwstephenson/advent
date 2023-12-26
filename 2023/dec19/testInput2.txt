@@ -1,0 +1,6 @@
+in{s<4001:rob,R}
+rob{x>2:xyz,luc}
+luc{a<3500:A,R}
+xyz{x>5:R,A}
+
+{x=787,m=2655,a=1222,s=2876}

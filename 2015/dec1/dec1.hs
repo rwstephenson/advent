@@ -29,6 +29,3 @@ main2 = do
   let result = pt2 contents
   print result
 
-
-
-
