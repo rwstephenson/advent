@@ -11,7 +11,7 @@ findRepeat :: Int -> Set Int -> [Int] -> Int
 findRepeat total seen (num:rest) | member total seen = total
                                  | otherwise         = findRepeat (total+num) (insert total seen) rest
 findRepeat _ _ _                                     = -1337
-((
+
 pt1 :: IO ()
 pt1 = do
   contents <- readFile "input.txt"
