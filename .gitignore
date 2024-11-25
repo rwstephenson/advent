@@ -1,2 +1,6 @@
+## Advent ##
 input.txt
 testInput.txt
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
