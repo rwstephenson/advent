@@ -13,5 +13,6 @@ def solve(filename):
     return total
 
 resTest = solve("testInput.txt")
+assert(resTest == 0)
 res = solve("input.txt")
 print("Test Input: {} Puzzle Input: {}".format(resTest,res))
