@@ -3,6 +3,7 @@ from math import *
 from collections import *
 sys.path.append('../../lib')
 from point import Point
+from interval import Interval
 
 def solve(filename):
     grid = []
