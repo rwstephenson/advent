@@ -28,9 +28,26 @@ class Interval:
         return num >= self.low and num <= self.high
 
     def getIntersection(self, other):
-        if self.low > other.high or other.low > self.high:
+        if other is None or self.low > other.high or other.low > self.high:
             return None
         elif self.low >= other.low:
             return Interval(self.low, min(self.high,other.high))
         elif self.low < other.low:
             return Interval(other.low, min(self.high,other.high))
+
+    def getBelow(self, other):
+        if other.low <= self.low:
+            return None
+        elif self.getIntersection(other) is None:
+            return self
+        else:
+            return Interval(self.low, other.low-1)
+
+    def getAbove(self, other):
+        if other.high >= self.high:
+            return None
+        elif self.getIntersection(other) is None:
+            return self
+        else:
+            return Interval(other.high+1,self.high)
+
