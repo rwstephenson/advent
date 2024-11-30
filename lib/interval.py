@@ -24,6 +24,9 @@ class Interval:
         else:
             return self.high - self.low - 1
 
+    def contains(self,num):
+        return num >= self.low and num <= self.high
+
     def getIntersection(self, other):
         if self.low > other.high or other.low > self.high:
             return None
