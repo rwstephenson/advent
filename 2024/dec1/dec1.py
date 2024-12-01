@@ -4,41 +4,25 @@ from collections import *
 sys.path.append('../../lib')
 from point import Point
 from interval import Interval
+from parsing import *
 
-def solve(filename):
-    total = 0
+def solve(filename,pt):
     with open(filename,"r") as f:
-        left = []
-        right = []
+        ints = []
         for line in f:
-            l,r = line.strip().split('   ')
-            left.append(int(l))
-            right.append(int(r))
-            left.sort()
-            right.sort()
-            assert(len(left) == len(right))
-        for i in range(len(left)):
-            total += abs(left[i]-right[i])
-    return total
+            ints.append(getInts(line))
+        left = sorted(i[0] for i in ints)
+        right = sorted(i[1] for i in ints)
+        if (pt == 1):
+            return sum(abs(l-r) for l,r in zip(left,right))
+        elif (pt == 2):
+            return sum(l*right.count(l) for l,r in zip(left,right))
 
-def solve2(filename):
-    total = 0
-    with open(filename,"r") as f:
-        left = []
-        right = defaultdict(int)
-        for line in f:
-            l,r = line.strip().split('   ')
-            left.append(int(l))
-            right[int(r)] += 1
-        for i in range(len(left)):
-            total += left[i] * right[left[i]]
-    return total
-
-resTest = solve("testInput.txt")
+resTest = solve("testInput.txt",1)
 assert(resTest == 11)
-res = solve("input.txt")
-print("Test Input: {} Puzzle Input: {}".format(resTest,res))
-resTest = solve2("testInput.txt")
+res = solve("input.txt",1)
+print("Part 1: Test Input: {} Puzzle Input: {}".format(resTest,res))
+resTest = solve("testInput.txt",2)
 assert(resTest == 31)
-res = solve2("input.txt")
-print("Test Input: {} Puzzle Input: {}".format(resTest,res))
+res = solve("input.txt",2)
+print("Part 2: Test Input: {} Puzzle Input: {}".format(resTest,res))
