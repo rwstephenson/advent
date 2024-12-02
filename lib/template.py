@@ -4,6 +4,7 @@ from collections import *
 sys.path.append('../../lib')
 from point import Point
 from interval import Interval
+from parsing import *
 
 def solve(filename):
     grid = []
@@ -14,6 +15,6 @@ def solve(filename):
     return total
 
 resTest = solve("testInput.txt")
-assert(resTest == 0)
+assert resTest == 0, f"Result was {resTest}"
 res = solve("input.txt")
 print("Test Input: {} Puzzle Input: {}".format(resTest,res))
