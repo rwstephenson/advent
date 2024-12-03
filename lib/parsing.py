@@ -6,7 +6,7 @@ def getInts(line):
     return [int(m) for m in _integer_pattern.findall(line)]
 
 def findAll(string,substring):
-    return [m.start() for m in re.finditer(substring, string)]
+    return [m.start() for m in re.finditer(re.escape(substring), string)]
 
 def parseLines(filename):
     lines = []
