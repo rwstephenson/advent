@@ -33,7 +33,6 @@ def findFirst(badUpdate,rules):
 
 def fix(badUpdate,rules):
     # key cant come before values
-    slimRules = {}
     numsLeft = badUpdate.copy()
     goodUpdate = []
     while(len(numsLeft) > 0):
