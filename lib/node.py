@@ -13,13 +13,15 @@ class Node:
             self.right = children[1]
 
     def childrenToStr(self):
-        s = self.children[0].value
-        for c in self.children[1:]:
-            s += ',' + c.value
+        s = ""
+        if len(self.children) > 0:
+            s = str(self.children[0].value)
+            for c in self.children[1:]:
+                s += ',' + str(c.value)
         return s
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
     def print(self):
         print("Node({}), Children[{}]".format(self.value,self.childrenToStr()))
