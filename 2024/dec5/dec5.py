@@ -70,10 +70,7 @@ def solve(filename, pt):
             else:
                 if pt == 2:
                     total += int(fix(update,rules)[len(update) // 2])
-    if pt == 1:
-        return total
-    elif pt == 2:
-        return total
+    return total
 
 run(1,143,5,2024)
 run(2,123,5,2024)
