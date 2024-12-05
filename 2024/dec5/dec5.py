@@ -19,23 +19,27 @@ def run(pt,expected,day,year):
         c = "b"
     submit(res, part=c, day=day, year=year)
 
-def fix(badUpdate,rules):
-    # key cant come before values
+def findFirst(badUpdate,rules):
     slimRules = {}
-    goodUpdate = []
     for i in badUpdate:
         rulesForI = set()
         for r in rules[i]:
             if r in badUpdate:
                 rulesForI.add(r)
         slimRules[i] = rulesForI
-    while(len(goodUpdate) < len(badUpdate)):
-        for i in badUpdate:
-            if len(slimRules[i]) == 0 and i not in goodUpdate:
-                goodUpdate.append(i)
-                for r in slimRules.keys():
-                    if i in slimRules[r]:
-                        slimRules[r].remove(i)
+    for i in badUpdate:
+        if len(slimRules[i]) == 0:
+            return i
+
+def fix(badUpdate,rules):
+    # key cant come before values
+    slimRules = {}
+    numsLeft = badUpdate.copy()
+    goodUpdate = []
+    while(len(numsLeft) > 0):
+        first = findFirst(numsLeft,rules)
+        goodUpdate.append(first)
+        numsLeft.remove(first)
     return goodUpdate
 
 def solve(filename, pt):
