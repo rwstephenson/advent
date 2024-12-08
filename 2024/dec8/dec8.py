@@ -22,7 +22,7 @@ def findLocations(pa,pb,grid,pt):
         ret = []
         i = 1
         locA,locB = (pa, pb)
-        while locA.isInside() or locB.isInside():
+        while locA.value or locB.value:
             ret.append(locA)
             ret.append(locB)
             locA,locB = (pa - Point(delta.x * i, delta.y * i,grid),pb + Point(delta.x * i, delta.y * i,grid))
@@ -36,12 +36,12 @@ def solve(filename, pt):
     for r in range(len(grid)):
         for c in range(len(grid[r])):
             p = Point(c,r,grid)
-            if p.getValue() != '.':
-                frequencies[p.getValue()].add(p)
+            if p.value != '.':
+                frequencies[p.value].add(p)
     for f in frequencies.keys():
         for pa,pb in choose2(list(frequencies[f])):
             for loc in findLocations(pa,pb,grid,pt):
-                if loc.isInside():
+                if loc.value:
                     found.add(hash(loc))
     return len(found)
 
