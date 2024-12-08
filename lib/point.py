@@ -3,7 +3,6 @@ class Point:
     def __init__(self, x, y, grid):
         self.x = x
         self.y = y
-        self.value = grid[y][x]
         self.maxX = len(grid[0]) - 1
         self.maxY = len(grid) - 1
         self.grid = grid
@@ -12,10 +11,25 @@ class Point:
         return "Point({0},{1})".format(self.x, self.y)
 
     def __add__(self, other):
-        return Point(self.x + other.x, self.y + other.y)
+        return Point(self.x + other.x, self.y + other.y,self.grid)
+
+    def __sub__(self, other):
+        return Point(self.x - other.x, self.y - other.y,self.grid)
 
     def __hash__(self):
         return hash((self.x, self.y))
+
+    def isOutside(self):
+        return self.x < 0 or self.x > self.maxX or self.y < 0 or self.y > self.maxY
+
+    def isInside(self):
+        return not self.isOutside()
+
+    def getValue(self):
+        if self.isInside():
+            return self.grid[self.y][self.x]
+        else:
+            return None
 
     def getNeighboor(self, d):
         if d == 'N' and self.y > 0:
