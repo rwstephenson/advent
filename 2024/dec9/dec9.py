@@ -55,6 +55,7 @@ def solve(filename, pt):
                     print("Not enough space for the full file")
                     if pt == 1:
                         filePos[freeSpacePos] = fileId,spaceAvailable
+                        filePos[k] = (fileId,fileLength - spaceAvailable)
                         freeSpace[i] = (freeSpacePos,0)
                         fileLength -= spaceAvailable
                     elif pt == 2:
@@ -97,5 +98,5 @@ def run(pt,day,year,expect):
         c = "b"
     submit(res, part=c, day=day, year=year)
 
-run(1,9,2024,1928)
+#run(1,9,2024,1928)
 run(2,9,2024,2858)
