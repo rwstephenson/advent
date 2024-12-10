@@ -5,7 +5,7 @@ sys.path.append('../../lib')
 from point import Point
 from interval import Interval
 from parsing import *
-from aocd import submit
+from aocd import get_data, submit
 
 def solve(filename, pt):
     lines = parseLines(filename)
@@ -13,6 +13,8 @@ def solve(filename, pt):
     return total
 
 def run(pt,day,year,expect):
+    with open("input.txt","w") as f:
+        f.write(get_data(day=day,year=year))
     resTest = solve("testInput.txt",pt)
     assert resTest == -1, f"Result was {resTest}"
     res = solve("input.txt",pt)

@@ -5,7 +5,7 @@ sys.path.append('../../lib')
 from point import Point
 from interval import Interval
 from parsing import *
-from aocd import submit
+from aocd import get_data, submit
 
 def dfsTo9(t,seen,pt):
     if pt == 1 and hash(t) in seen:
@@ -34,6 +34,9 @@ def solve(filename, pt):
     return total
 
 def run(pt,day,year,expected):
+    with open("input.txt","w") as f:
+        data = get_data(day=day, year=year)
+        f.write(data)
     resTest = solve("testInput.txt",pt)
     assert resTest == expected, f"Result was {resTest}"
     res = solve("input.txt",pt)
