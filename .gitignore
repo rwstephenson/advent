@@ -1,7 +1,8 @@
 ## Advent ##
 input.txt
 testInput.txt
-testInput2.txt
+testInput*.txt
+my-graph.gv*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
