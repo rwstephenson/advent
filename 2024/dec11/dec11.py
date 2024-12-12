@@ -37,35 +37,26 @@ def groupStones(stones):
         groupedStones[s] = stones.count(s)
     return groupedStones
 
-def solve(filename, pt):
+def solve(filename, pt1target, pt2target, brute):
     lines = parseLines(filename)
     stones = getInts(lines[0])
     groupedStones = groupStones(stones)
-    if pt == 1:
-        blinksLeft = 25
-        while blinksLeft > 0:
+    res = 0
+    for i in range(pt2target):
+        if brute:
             stones = blinkBrute(stones)
-            blinksLeft -= 1
-        return len(stones)
-    elif pt == 2:
-        blinksLeft = 75
-        while blinksLeft > 0:
+            res = len(stones)
+        else:
             groupedStones = blink(groupedStones)
-            blinksLeft -= 1
-        return sum(groupedStones.values())
+            res = sum(groupedStones.values())
+        if i == pt1target - 1:
+            submit(res, part=1, day=11, year=2024)
+    submit(res, part=2, day=11, year=2024)
 
-def run(pt,day,year,expect):
+
+def run(day,year,brute=False):
     with open("input.txt","w") as f:
         f.write(get_data(day=day,year=year))
-    resTest = solve("testInput.txt",pt)
-    #assert resTest == expect, f"Result was {resTest}"
-    res = solve("input.txt",pt)
-    print("Test Input: {} Puzzle Input: {}".format(resTest,res))
-    if pt == 1:
-        c = "a"
-    else:
-        c = "b"
-    submit(res, part=c, day=day, year=year)
+    solve("input.txt",25,75,brute)
 
-run(1,11,2024,55312)
-run(2,11,2024,65601038650482)
+run(11,2024)
