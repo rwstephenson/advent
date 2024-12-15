@@ -16,7 +16,7 @@ def run(pt,day,year,expect):
     with open("input.txt","w") as f:
         f.write(get_data(day=day,year=year))
     resTest = solve("testInput.txt",pt)
-    assert resTest == -1, f"Result was {resTest}"
+    assert resTest == expect, f"Result was {resTest}"
     res = solve("input.txt",pt)
     print("Test Input: {} Puzzle Input: {}".format(resTest,res))
     if pt == 1:
@@ -26,4 +26,4 @@ def run(pt,day,year,expect):
     submit(res, part=c, day=day, year=year)
 
 run(1,0,2024,-1)
-run(2,0,2024,-1)
+#run(2,0,2024,-1)
