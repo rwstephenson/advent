@@ -23,6 +23,9 @@ class Point:
     def __hash__(self):
         return hash((self.x, self.y))
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
     def getNeighboor(self, d):
         if d == 'N' and self.y > 0:
             return Point(self.x, self.y - 1, self.grid)

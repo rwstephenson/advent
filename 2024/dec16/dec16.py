@@ -18,49 +18,33 @@ def shortestPath(start,end,grid,pt):
             if grid[r][c] != '#':
                 p = Point(c,r,grid)
                 for d in ['N','E','S','W']:
-                    dist[hash((hash(p),d))] = INF
+                    dist[(hash(p),d)] = INF
                     q.append((p,d))
-    dist[hash((hash(start),'E'))] = 0
-    prev[hash((hash(start),'E'))].add(start)
+    dist[(hash(start),'E')] = 0
+    prev[(hash(start),'E')].add(start)
 
     while len(q) > 0:
-        q.sort(key=lambda pd: dist[hash((hash(pd[0]),pd[1]))])
-        #for ud in q:
-        #    print("p {} d {} dist {}".format(ud[0],ud[1],dist[hash((hash(ud[0]),ud[1]))]))
+        q.sort(key=lambda pd: dist[(hash(pd[0]),pd[1])])
         u,d = q.pop(0)
-        val = dist[hash((hash(u),d))]
-        print("Checking p: {} d: {} dist: {} prev: {}".format(u,d,val,len(prev[hash((hash(u),d))])))
+        val = dist[(hash(u),d)]
         for nd in ['N','E','S','W']:
             n = u.getNeighboor(nd)
             if n and n.value != '#':
-                #print("Checking Neighboor: {} d: {} dist: {}".format(n,nd,dist[hash((hash(n),nd))]))
                 if nd == d:
-                    alt = dist[hash((hash(u),d))] + 1
+                    alt = dist[(hash(u),d)] + 1
                 else:
-                    alt = dist[hash((hash(u),d))] + 1000 + 1
-                if alt < dist[hash((hash(n),nd))]:
-                    dist[hash((hash(n),nd))] = alt
-                    print("FOUND A BETTER WAY to {} {} dist: {}".format(n,nd,alt))
-                    #print("Adding {} {} to Q".format(n,nd))
-                    prev[hash((hash(n),nd))] = prev[hash((hash(u),d))].copy()
-                    prev[hash((hash(n),nd))].add(n)
-                elif alt == dist[hash((hash(n),nd))]:
-                    print("FOUND AN EQUAL ROUTE to add to {}".format(len(prev[hash((hash(u),d))])))
-                    for p in prev[hash((hash(n),nd))]:
-                        print("Adding new {}".format(p))
-                        prev[hash((hash(u),d))].add(p)
-                    print("Now {}".format(len(prev[hash((hash(u),d))])))
+                    alt = dist[(hash(u),d)] + 1000 + 1
+                if alt < dist[(hash(n),nd)]:
+                    dist[(hash(n),nd)] = alt
+                    prev[(hash(n),nd)] = prev[(hash(u),d)].copy()
+                    prev[(hash(n),nd)].add(n)
+                elif alt == dist[(hash(n),nd)]:
+                    for p in prev[(hash(u),nd)]:
+                        prev[(hash(n),d)].add(p)
     if pt == 1:
-        return min(dist[hash((hash(end),'N'))],dist[hash((hash(end),'E'))],dist[hash((hash(end),'S'))],dist[hash((hash(end),'W'))])
+        return dist[(hash(end),'N')]
     elif pt == 2:
-        prevN = list(prev[hash((hash(end),'N'))])
-        prevN.sort(key=lambda p: p.x*1000 + p.y)
-        for p in prevN:
-            print(p)
-        #prevE = prev[hash((hash(end),'E'))]
-        #prevS = prev[hash((hash(end),'S'))]
-        #prevW = prev[hash((hash(end),'W'))]
-        return len(prevN)
+        return len(prev[(hash(end),'N')])
 
 def solve(filename, pt):
     grid = parseLines(filename)
@@ -78,8 +62,9 @@ def run(pt,day,year,expect):
     with open("input.txt","w") as f:
         f.write(get_data(day=day,year=year))
     resTest = solve("testInput.txt",pt)
+    print(resTest)
     assert resTest == expect, f"Result was {resTest}"
-    #res = solve("input.txt",pt)
+    res = solve("input.txt",pt)
     print("Test Input: {} Puzzle Input: {}".format(resTest,res))
     if pt == 1:
         c = "a"
