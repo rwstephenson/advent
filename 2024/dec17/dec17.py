@@ -61,6 +61,14 @@ def cdv(operand, regs):
     regs[2] = regs[0] // (2**getCombo(operand,regs))
 
 
+#Input: 2,4,1,2,7,5,4,1,1,3,5,5,0,3,3,0
+# while a > 0
+#   B = (A % 8) ^ 2
+#   C = A % (2^B)
+#   B = (B ^ C) ^ 3
+#   print(B%8)
+#   a = a // 8
+
 def solve(filename, pt):
     lines = parseLines(filename)
     regs = [getInts(lines[0])[0],getInts(lines[1])[0],getInts(lines[2])[0]]
