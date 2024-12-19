@@ -7,31 +7,6 @@ from interval import Interval
 from parsing import *
 from aocd import get_data, submit
 
-def bfs(s,e):
-    q = []
-    seen = set()
-    prev = {}
-    q.append(s)
-    prev[s] = None
-    seen.add(s)
-    while len(q) > 0:
-        p = q.pop(0)
-        for n in p.getNeighboors():
-            if n.value != '#' and n not in seen:
-                q.append(n)
-                prev[n] = p
-                seen.add(n)
-    if e in seen:
-        p = e
-        path = set()
-        path.add(e)
-        while prev[p] is not None:
-            p = prev[p]
-            path.add(p)
-        return path
-    else:
-        return set()
-
 def solve(filename, gridSize, b, pt):
     lines = parseLines(filename)
     grid = []
@@ -45,7 +20,7 @@ def solve(filename, gridSize, b, pt):
         grid[xy[1]][xy[0]] = '#'
     s = Point(0,0,grid)
     e = Point(gridSize,gridSize,grid)
-    pathA = bfs(s,e)
+    pathA = s.bfs(e,set('#'))
     if pt == 1:
         return len(pathA)-1
     elif pt == 2:
@@ -54,7 +29,7 @@ def solve(filename, gridSize, b, pt):
             grid[xy[1]][xy[0]] = '#'
             p = Point(xy[0],xy[1],grid)
             if p in pathA:
-                pathA = bfs(s,e)
+                pathA = s.bfs(e,set('#'))
                 if len(pathA) == 0:
                     return str(p.x) + ',' + str(p.y)
 

@@ -52,3 +52,27 @@ class Point:
         neighboors = [i for i in list(map(self.getNeighboor,dirs)) if i is not None]
         return neighboors
 
+    def bfs(self,other,exclusions):
+        q = []
+        seen = set()
+        prev = {}
+        q.append(self)
+        prev[self] = None
+        seen.add(self)
+        while len(q) > 0:
+            p = q.pop(0)
+            for n in p.getNeighboors():
+                if n.value not in exclusions and n not in seen:
+                    q.append(n)
+                    prev[n] = p
+                    seen.add(n)
+        path = []
+        if other in seen:
+            p = other
+            path.append(other)
+            while prev[p] is not None:
+                p = prev[p]
+                path.append(p)
+            path.reverse()
+        return path
+
