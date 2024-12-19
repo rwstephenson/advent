@@ -12,21 +12,21 @@ def bfs(s,e):
     seen = set()
     prev = {}
     q.append(s)
-    prev[hash(s)] = None
+    prev[s] = None
     seen.add(s)
     while len(q) > 0:
         p = q.pop(0)
         for n in p.getNeighboors():
             if n.value != '#' and n not in seen:
                 q.append(n)
-                prev[hash(n)] = p
+                prev[n] = p
                 seen.add(n)
     if e in seen:
         p = e
         path = set()
         path.add(e)
-        while prev[hash(p)] is not None:
-            p = prev[hash(p)]
+        while prev[p] is not None:
+            p = prev[p]
             path.add(p)
         return path
     else:
