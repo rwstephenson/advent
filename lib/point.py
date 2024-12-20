@@ -26,6 +26,10 @@ class Point:
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
+    def distance(self,other,cartesian=False):
+        assert(not cartesian)
+        return abs(self.x-other.x) + abs(self.y-other.y)
+
     def getNeighboor(self, d):
         if d == 'N' and self.y > 0:
             return Point(self.x, self.y - 1, self.grid)
