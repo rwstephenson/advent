@@ -50,7 +50,7 @@ class Point:
         return None
 
     def getNeighboors(self, diagonally=False):
-        dirs = ['N','S','E','W']
+        dirs = ['E','W','N','S']
         if diagonally:
             dirs += ['NE','SE','NW','SW']
         neighboors = [i for i in list(map(self.getNeighboor,dirs)) if i is not None]
@@ -79,4 +79,11 @@ class Point:
                 path.append(p)
             path.reverse()
         return path
+
+    def find(self,value):
+        for r in range(len(self.grid)):
+            for c in range(len(self.grid[r])):
+                if self.grid[r][c] == value:
+                    return Point(c,r,self.grid)
+        return None
 
