@@ -50,7 +50,7 @@ class Point:
         return None
 
     def getNeighboors(self, diagonally=False):
-        dirs = ['E','W','N','S']
+        dirs = ['E','N','S','W']
         if diagonally:
             dirs += ['NE','SE','NW','SW']
         neighboors = [i for i in list(map(self.getNeighboor,dirs)) if i is not None]

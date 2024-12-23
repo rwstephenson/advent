@@ -21,6 +21,55 @@ def makeDirectionalGrid():
     grid.append("WSE")
     return Point(2,0,grid),grid
 
+def findDirpadPaths(s,e):
+    if s == e:
+        return ['A']
+    if s == 'A':
+        if e == 'W':
+            return ['WSWA','SWWA']
+        elif e == 'E':
+            return ['SA']
+        elif e == 'N':
+            return ['WA']
+        elif e == 'S':
+            return ['WSA','SWA']
+    elif s == 'N':
+        if e == 'W':
+            return ['SWA']
+        elif e == 'E':
+            return ['SEA','ESA']
+        elif e == 'S':
+            return ['SA']
+        elif e == 'A':
+            return ['WA']
+    elif s == 'E':
+        if e == 'W':
+            return ['WWA']
+        elif e == 'A':
+            return ['NA']
+        elif e == 'N':
+            return ['NWA','WNA']
+        elif e == 'S':
+            return ['WA']
+    elif s == 'S':
+        if e == 'W':
+            return ['WA']
+        elif e == 'E':
+            return ['EA']
+        elif e == 'N':
+            return ['NA']
+        elif e == 'A':
+            return ['NEA','ENA']
+    elif s == 'W':
+        if e == 'S':
+            return ['EA']
+        elif e == 'E':
+            return ['EEA']
+        elif e == 'N':
+            return ['ENA']
+        elif e == 'A':
+            return ['EENA','ENEA']
+
 def findPath(rob,value):
     e = rob.find(value)
     path = rob.bfs(e,['X'])
@@ -34,7 +83,6 @@ def findPath(rob,value):
                     res += d
         if p.value == value:
             res += 'A'
-    #assert(res != "ENEA" and res != "WSWA")
     return res,e
 
 def walk(s,path,grid):
@@ -80,15 +128,19 @@ def solve(filename, pt):
         rob3 = Point(keypadS.x,keypadS.y,keypadS.grid)
         rob2 = Point(dirPadS.x,dirPadS.y,dirPadS.grid)
         rob1 = Point(dirPadS.x,dirPadS.y,dirPadS.grid)
+        keypadWalks = []
         for c in keypadNums:
             rob3Path,rob3 = findPath(rob3,c)
             keypadWalk += rob3Path
         for c in keypadWalk:
-            rob2Path,rob2 = findPath(rob2,c)
+            rob2Path = findDirpadPaths(rob2.value,c)[0]
+            rob2 = rob2.find(c)
             dirpad1Walk += rob2Path
         for c in dirpad1Walk:
-            rob1Path,rob1 = findPath(rob1,c)
+            rob1Path = findDirpadPaths(rob1.value,c)[0]
+            rob1 = rob1.find(c)
             dirpad2Walk += rob1Path
+        print(dirpad2Walk)
         dirpadWalk = walk(dirPadS,dirpad2Walk,dirGrid)
         print("DirpadWalk: {} len {}".format(dirpadWalk,len(dirpadWalk)))
         keypadWalk = walk(dirPadS,dirpadWalk,dirGrid)
