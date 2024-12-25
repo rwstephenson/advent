@@ -217,21 +217,25 @@ def solve(filename, pt):
             robots = 2
         elif pt == 2:
             robots = 25
+        res = 0
         for i in range(robots):
             print("Robot: {} len Walk: {}".format(i,len(oldWalk)))
             for c in oldWalk:
                 rob2Path = findDirpadPaths(rob2,c)
                 rob2 = c
                 for d in rob2Path:
-                    dirpad1Walk.append(d)
+                    if i < robots - 1:
+                        dirpad1Walk.append(d)
+                    else:
+                        res += 1
             oldWalk = dirpad1Walk
             dirpad1Walk = []
         #for c in dirpad1Walk:
         #    rob1Path = findDirpadPaths(rob1.value,c)[0]
         #    rob1 = rob1.find(c)
         #    dirpad2Walk += rob1Path
-        print("Res is {} * {}".format(len(oldWalk),int(keypadNums[0:3])))
-        total += len(oldWalk)*int(keypadNums[0:3])
+        print("Res is {} * {}".format(res,int(keypadNums[0:3])))
+        total += res*int(keypadNums[0:3])
     return total
 
 def run(pt,day,year,expect):
